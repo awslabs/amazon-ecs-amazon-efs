@@ -460,7 +460,7 @@
                         ],
                         "MountPoints": [
                             {
-                                "ContainerPath": "/mnt/efs/mysql",
+                                "ContainerPath": "/var/lib/mysql",
                                 "SourceVolume": "my-efs"
                             }
                         ],
@@ -475,7 +475,7 @@
                 "Volumes": [
                     {
                         "Host": {
-                            "SourcePath": "/mnt/efs"
+                            "SourcePath": "/mnt/efs/mysql"
                         },
                         "Name": "my-efs"
                     }
@@ -823,3 +823,4 @@
         }
     }
 }
+

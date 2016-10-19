@@ -702,7 +702,7 @@
                                 "mount -t nfs4 $DIR_SRC:/ $DIR_TGT >> /home/ec2-user/echo.res\n",
                                 "cp -p /etc/fstab /etc/fstab.back-$(date +%F)\n",
                                 "echo -e \"$DIR_SRC:/ \t\t $DIR_TGT \t\t nfs \t\t defaults \t\t 0 \t\t 0\" | tee -a /etc/fstab\n",
-				"service docker ps\n",
+				"docker ps\n",
                                 "service docker stop\n",
                                 "service docker start\n",
                                 "/opt/aws/bin/cfn-signal -e $? ",

@@ -114,10 +114,10 @@
             "eu-west-1": {
                 "AMIID": "ami-ccd942bf"
             },
-			"eu-central-1": {
+            "eu-central-1": {
                 "AMIID": "ami-4a5eb625"
             },
-			"ap-southeast-1": {
+            "ap-southeast-1": {
                 "AMIID": "ami-24c71547"
             },
             "ap-northeast-1": {

@@ -70,7 +70,7 @@
             "Description": "The name of the EFS volume",
             "Type": "String",
             "MinLength": "1",
-            "Default": "myEFSvolume"
+            "Default": "owasp-dependency-track-efs"
         },
         "CIDRVPC": {
             "Description": "Enter the CIDR Range for your VPC",
@@ -304,8 +304,8 @@
                     },
                     {
                         "IpProtocol": "tcp",
-                        "FromPort": "3306",
-                        "ToPort": "3306",
+                        "FromPort": "8080",
+                        "ToPort": "8080",
                         "CidrIp": "0.0.0.0/0"
                     }
                 ]
@@ -393,13 +393,13 @@
                 ],
                 "Listeners": [
                     {
-                        "LoadBalancerPort": "3306",
-                        "InstancePort": "3306",
+                        "LoadBalancerPort": "8080",
+                        "InstancePort": "8080",
                         "Protocol": "TCP"
                     }
                 ],
                 "HealthCheck": {
-                    "Target": "TCP:3306",
+                    "Target": "TCP:8080",
                     "HealthyThreshold": "2",
                     "UnhealthyThreshold": "2",
                     "Interval": "30",
@@ -427,8 +427,8 @@
                 "DesiredCount": "1",
                 "LoadBalancers": [
                     {
-                        "ContainerName": "efsdemo",
-                        "ContainerPort": "3306",
+                        "ContainerName": "owasp-dependency-track",
+                        "ContainerPort": "8080",
                         "LoadBalancerName": {
                             "Ref": "EcsElasticLoadBalancer"
                         }
@@ -447,27 +447,22 @@
             "Properties": {
                 "ContainerDefinitions": [
                     {
-                        "Name": "efsdemo",
-                        "Cpu": "10",
+                        "Name": "efs-owasp-dependency-track",
+                        "Cpu": "4096",
                         "Essential": "true",
-                        "Image": "mysql",
-                        "Memory": "500",
-                        "Environment": [
-                            {
-                                "Name": "MYSQL_ROOT_PASSWORD",
-                                "Value": "password"
-                            }
-                        ],
+                        "Image": "owasp/dependency-track",
+                        "Memory": "8192",
+                        "Environment": [],
                         "MountPoints": [
                             {
-                                "ContainerPath": "/var/lib/mysql",
+                                "ContainerPath": "/data",
                                 "SourceVolume": "my-efs"
                             }
                         ],
                         "PortMappings": [
                             {
-                                "HostPort": 3306,
-                                "ContainerPort": 3306
+                                "HostPort": 8080,
+                                "ContainerPort": 8080
                             }
                         ]
                     }
@@ -475,7 +470,7 @@
                 "Volumes": [
                     {
                         "Host": {
-                            "SourcePath": "/mnt/efs/mysql"
+                            "SourcePath": "/mnt/efs/data"
                         },
                         "Name": "my-efs"
                     }
